@@ -4,6 +4,7 @@ using System.Text;
 
 namespace FanoMvvm.Logging
 {
+    /// <inheritdoc />
     /// <summary>
     /// Logger that write messages directory to a file
     /// </summary>
@@ -17,6 +18,7 @@ namespace FanoMvvm.Logging
 
             File.WriteAllText(_logPath, string.Empty);
 
+            InitEvent += () => LogToFile(GetLogHeader(), LogLevel.None);
             LogEvent += LogToFile;
             LogClearedEvent += ClearFile;
         }

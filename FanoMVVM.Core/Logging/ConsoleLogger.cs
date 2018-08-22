@@ -3,6 +3,7 @@ using System.Text;
 
 namespace FanoMvvm.Logging
 {
+    /// <inheritdoc />
     /// <summary>
     /// Logger that writes messages to the C# Console
     /// </summary>
@@ -10,12 +11,7 @@ namespace FanoMvvm.Logging
     {
         public ConsoleLogger()
         {
-            InitEvent += () =>
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(GetLogHeader());
-                Console.ForegroundColor = ConsoleColor.Gray;
-            };
+            InitEvent += () => LogToConsole(GetLogHeader(), LogLevel.None);
 
             LogClearedEvent += Console.Clear;
             LogEvent += LogToConsole;

@@ -40,7 +40,7 @@ namespace FanoMvvm.Logging
         private string FormatMessage(string message, LogLevel level)
         {
             string prefix = level == LogLevel.Info ? string.Empty : $"{level.ToString().ToUpper()}: ";
-            string formattedMessage = level == LogLevel.None ? message : $"{DateTime.Now:HH:mm:ss} -- {prefix}{message}";
+            string formattedMessage = $"{DateTime.Now:HH:mm:ss} -- {prefix}{message}";
 
             return formattedMessage;
         }

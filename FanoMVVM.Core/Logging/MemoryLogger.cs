@@ -5,7 +5,6 @@ namespace FanoMvvm.Logging
     /// <inheritdoc />
     /// <summary>
     /// Generic logger class, maintains an in-memory log.
-    /// Publishes events when the log is updated.
     /// </summary>
     public class MemoryLogger : AbstractLogger
     {
