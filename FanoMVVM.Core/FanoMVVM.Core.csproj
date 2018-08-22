@@ -60,9 +60,10 @@
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Logging\AbstractLogger.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Logging\FileLogger.cs" />
-    <Compile Include="Logging\GenericLogger.cs" />
+    <Compile Include="Logging\MemoryLogger.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Properties\Annotations.cs" />

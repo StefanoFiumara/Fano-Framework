@@ -6,6 +6,8 @@
         void Warning(string message);
         void Error(string message);
 
+        void Clear();
+
         string GetCurrentSessionLog();
     }
 }

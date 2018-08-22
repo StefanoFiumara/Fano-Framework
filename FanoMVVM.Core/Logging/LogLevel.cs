@@ -1,6 +1,6 @@
 ﻿namespace FanoMvvm.Logging
 {
-    internal enum LogLevel
+    public enum LogLevel
     {
         None, Info, Warning, Error
     }

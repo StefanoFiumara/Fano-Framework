@@ -7,7 +7,7 @@ namespace FanoMvvm.Logging
     /// <summary>
     /// Logger that write messages directory to a file
     /// </summary>
-    public class FileLogger : GenericLogger
+    public class FileLogger : AbstractLogger
     {
         private readonly string _logPath;
         
@@ -16,16 +16,28 @@ namespace FanoMvvm.Logging
             _logPath = Path.GetFullPath(logPath);
 
             File.WriteAllText(_logPath, string.Empty);
+
+            LogEvent += LogToFile;
+            LogClearedEvent += ClearFile;
         }
 
 
-        protected override void LogAction(string formattedMessage)
+        private void LogToFile(string formattedMessage, LogLevel level)
         {
-            using (var stream = new FileStream(_logPath, FileMode.Append, FileAccess.Write))
-            using (var writer = new StreamWriter(stream))
+            using (var writer = new StreamWriter(_logPath, append: true))
             {
                 writer.WriteLine(formattedMessage);
             }
+        }
+
+        private void ClearFile()
+        {
+            File.WriteAllText(_logPath, string.Empty);
+        }
+
+        public override string GetCurrentSessionLog()
+        {
+            return File.ReadAllText(_logPath);
         }
     }
 }
