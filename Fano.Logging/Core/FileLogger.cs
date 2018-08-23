@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using Fano.Logging.Core;
 
-namespace Fano.Logging
+namespace Fano.Logging.Core
 {
     /// <inheritdoc />
     /// <summary>
