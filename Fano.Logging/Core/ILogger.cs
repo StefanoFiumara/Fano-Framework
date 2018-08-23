@@ -1,4 +1,7 @@
-﻿namespace Fano.Logging.Core
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Fano.Logging.Core
 {
     public interface ILogger
     {
@@ -8,6 +11,6 @@
 
         void Clear();
 
-        string GetCurrentSessionLog();
+        IEnumerable<LogEntry> GetLogEntries();
     }
 }

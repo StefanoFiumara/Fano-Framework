@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Fano.Logging.Core
 {
@@ -16,28 +17,31 @@ namespace Fano.Logging.Core
 
             File.WriteAllText(_logPath, string.Empty);
 
-            InitEvent += () => LogToFile(GetLogHeader(), LogLevel.None);
+            InitEvent += WriteHeader;
             LogEvent += LogToFile;
             LogClearedEvent += ClearFile;
         }
 
-
-        private void LogToFile(string formattedMessage, LogLevel level)
+        private void WriteHeader()
         {
             using (var writer = new StreamWriter(_logPath, append: true))
             {
-                writer.WriteLine(formattedMessage);
+                writer.WriteLine(GetLogHeader());
+            }
+        }
+
+
+        private void LogToFile(LogEntry entry)
+        {
+            using (var writer = new StreamWriter(_logPath, append: true))
+            {
+                writer.WriteLine(entry.FormattedMessage);
             }
         }
 
         private void ClearFile()
         {
-            File.WriteAllText(_logPath, string.Empty);
-        }
-
-        public override string GetCurrentSessionLog()
-        {
-            return File.ReadAllText(_logPath);
+            File.WriteAllText(_logPath, GetLogHeader());
         }
     }
 }

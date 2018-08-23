@@ -1,25 +1,37 @@
 ﻿using System;
-using Fano.Logging.Core;
+using System.Collections.Generic;
 
-namespace Fano.Logging.Loggers
+namespace Fano.Logging.Core
 {
     /// <inheritdoc />
     /// <summary>
     /// Logger that writes messages to the C# Console
     /// </summary>
-    public class ConsoleLogger : MemoryLogger
+    public class ConsoleLogger : AbstractLogger
     {
         public ConsoleLogger()
         {
-            InitEvent += () => LogToConsole(GetLogHeader(), LogLevel.None);
+            InitEvent += WriteHeader;
 
-            LogClearedEvent += Console.Clear;
+            LogClearedEvent += () =>
+            {
+                Console.Clear();
+                WriteHeader();
+            };
+
             LogEvent += LogToConsole;
         }
 
-        private void LogToConsole(string message, LogLevel level)
+        private void WriteHeader()
         {
-            switch (level)
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(GetLogHeader());
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        private void LogToConsole(LogEntry entry)
+        {
+            switch (entry.LogLevel)
             {
                 case LogLevel.None:
                 case LogLevel.Info:
@@ -33,7 +45,7 @@ namespace Fano.Logging.Loggers
                     break;
             }
 
-            Console.WriteLine(message);
+            Console.WriteLine(entry.FormattedMessage);
 
             Console.ForegroundColor = ConsoleColor.Gray;
         }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Fano.Logging;
 using Fano.Logging.Core;
-using Fano.Logging.Loggers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fano.UnitTests.Logging
@@ -18,29 +18,27 @@ namespace Fano.UnitTests.Logging
             log.Info("Test Info");
             log.Warning("Test Info");
             log.Error("Test Error");
+            
+            Assert.IsTrue(File.Exists("test.log"));
+            var fileContent = File.ReadAllLines("test.log");
+            Assert.AreEqual(6, fileContent.Length); //3 lines header, 3 lines log entries
 
-            var currentSessionLog = log.GetCurrentSessionLog();
-            var fileContents = File.ReadAllText("test.log");
-            Assert.AreEqual(currentSessionLog, fileContents);
+            var entries = log.GetLogEntries();
+            Assert.AreEqual(3, entries.Count());
         }
 
         [TestMethod]
         public void ConsoleLogger_TestLogEntry()
         {
             ILogger log = new ConsoleLogger();
-            using (var writer = new StringWriter())
-            {
-                Console.SetOut(writer);
 
-                log.Info("Test Info");
-                log.Warning("Test Info");
-                log.Error("Test Error");
+            log.Info("Test Info");
+            log.Warning("Test Info");
+            log.Error("Test Error");
 
-                var currentSessionLog = log.GetCurrentSessionLog();
-                var consoleOutput = writer.ToString();
-                Assert.AreEqual(currentSessionLog, consoleOutput);
-            }
-            
+            var entries = log.GetLogEntries();
+            Assert.AreEqual(3, entries.Count());
+
         }
     }
 }
