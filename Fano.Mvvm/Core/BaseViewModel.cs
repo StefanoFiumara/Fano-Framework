@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Fano.Events.Core;
+using Fano.Logging.Core;
 using Fano.Mvvm.Properties;
 
 namespace Fano.Mvvm.Core
@@ -16,6 +17,7 @@ namespace Fano.Mvvm.Core
         }
 
         protected IEventAggregator EventAggregator { get; }
+        public ILogger Log { get; }
 
         private bool _isBusy;
         private string _busyText;
@@ -42,9 +44,10 @@ namespace Fano.Mvvm.Core
             }
         }
 
-        public BaseViewModel(IEventAggregator eventAggregator)
+        public BaseViewModel(IEventAggregator eventAggregator, ILogger log)
         {
             EventAggregator = eventAggregator;
+            Log = log;
         }
     }
 }

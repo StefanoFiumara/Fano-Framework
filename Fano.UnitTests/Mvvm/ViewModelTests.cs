@@ -1,4 +1,5 @@
 ﻿using Fano.Events.Core;
+using Fano.Logging.Core;
 using Fano.Mvvm.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,7 +13,7 @@ namespace Fano.UnitTests.Mvvm
         [TestInitialize]
         public void Init()
         {
-            this.ViewModel = new BaseViewModel(new EventAggregator());
+            this.ViewModel = new BaseViewModel(new EventAggregator(), new ConsoleLogger());
 
         }
 
