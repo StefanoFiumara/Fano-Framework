@@ -22,23 +22,6 @@ namespace Fano.UnitTests.Logging
             Assert.IsTrue(File.Exists("test.log"));
             var fileContent = File.ReadAllLines("test.log");
             Assert.AreEqual(6, fileContent.Length); //3 lines header, 3 lines log entries
-
-            var entries = log.GetLogEntries();
-            Assert.AreEqual(3, entries.Count());
-        }
-
-        [TestMethod]
-        public void ConsoleLogger_TestLogEntry()
-        {
-            ILogger log = new ConsoleLogger();
-
-            log.Info("Test Info");
-            log.Warning("Test Info");
-            log.Error("Test Error");
-
-            var entries = log.GetLogEntries();
-            Assert.AreEqual(3, entries.Count());
-
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Fano.Logging.Core
         public LogLevel LogLevel { get; set; }
         public string Message { get; set; }
 
-        private string Prefix =>  $"{LogLevel.ToString().ToUpper()}: ";
+        private string Prefix =>  $" |^|{LogLevel.ToString().ToUpper()}|^| ";
 
-        public string FormattedMessage => $"{Timestamp:HH:mm:ss} -- {Prefix}{Message}";
+        public string FormattedMessage => $"{Timestamp:HH:mm:ss}{Prefix}{Message}";
     }
 }

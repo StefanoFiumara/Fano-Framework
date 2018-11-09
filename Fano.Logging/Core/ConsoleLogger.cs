@@ -12,13 +12,6 @@ namespace Fano.Logging.Core
         public ConsoleLogger()
         {
             InitEvent += WriteHeader;
-
-            LogClearedEvent += () =>
-            {
-                Console.Clear();
-                WriteHeader();
-            };
-
             LogEvent += LogToConsole;
         }
 
